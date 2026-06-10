@@ -17,9 +17,9 @@ Chạy `agent_simulation.py` với 2 bộ dữ liệu và ghi lại kết quả:
 
 ---
 
-## 2. Phân tích & nhận xét
+## 2. Phân tích & nhận xét (Phan tich & nhan xet)
 
-### Tại sao Agent trả lời sai khi dùng Garbage Data?
+### Tại sao Agent trả lời sai khi dùng Garbage Data? (Tai sao Agent tra loi sai khi dung Garbage Data?)
 
 Khi dùng `garbage_data.csv`, Agent trả lời sai vì chất lượng dữ liệu đầu vào rất kém. Bộ dữ liệu có `duplicate IDs` làm giảm độ tin cậy của bản ghi, có `wrong data types` như giá trị `ten dollars` trong cột `price` khiến việc so sánh và xử lý giá trở nên không ổn định. Ngoài ra, `outlier` như `Nuclear Reactor` với giá `999999` làm logic chọn sản phẩm giá cao nhất bị lệch hoàn toàn. Bản ghi cuối cùng còn có `null value` ở `id` và `category`, cho thấy dữ liệu thiếu và không đầy đủ. Khi Agent dựa trên dữ liệu rác, nó vẫn tìm thấy một bản ghi thuộc nhóm `electronics`, nhưng do không có bước validation và ràng buộc business, nó chọn sản phẩm vô lý thay vì sản phẩm thực sự phù hợp.
 
