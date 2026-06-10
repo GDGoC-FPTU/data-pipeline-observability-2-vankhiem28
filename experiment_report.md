@@ -1,35 +1,32 @@
 # Experiment Report: Data Quality Impact on AI Agent
 
 **Student ID:** AI20K-XXXX
-**Name:** (Dien ten cua ban)
-**Date:** (Dien ngay thuc hien)
+**Name:** Van khiem
+**Date:** 2026-06-10
 
 ---
 
-## 1. Ket qua thi nghiem
+## 1. Kết quả thí nghiệm
 
-Chay `agent_simulation.py` voi 2 bo du lieu va ghi lai ket qua:
+Chạy `agent_simulation.py` với 2 bộ dữ liệu và ghi lại kết quả:
 
 | Scenario | Agent Response | Accuracy (1-10) | Notes |
 |----------|----------------|-----------------|-------|
-| Clean Data (`processed_data.csv`) | (Ghi cau tra loi cua Agent) | | |
-| Garbage Data (`garbage_data.csv`) | (Ghi cau tra loi cua Agent) | | |
+| Clean Data (`processed_data.csv`) | Agent: Based on my data, the best choice is Laptop at $1200. | 9 | Dữ liệu sạch, category đã được chuẩn hóa và giá trị price hợp lệ nên Agent trả lời đúng với sản phẩm electronics có giá cao nhất. |
+| Garbage Data (`garbage_data.csv`) | Agent: Based on my data, the best choice is Nuclear Reactor at $999999. | 2 | Agent bị đánh lừa bởi outlier giá cực lớn và không có bước kiểm tra tính hợp lý của sản phẩm trong bộ dữ liệu rác. |
 
 ---
 
-## 2. Phan tich & nhan xet
+## 2. Phân tích & nhận xét
 
-### Tai sao Agent tra loi sai khi dung Garbage Data?
+### Tại sao Agent trả lời sai khi dùng Garbage Data?
 
-(Viet nhan xet cua ban o day — it nhat 50 tu)
-
-(Hay phan tich cac van de nhu Duplicate IDs, wrong data types, outliers, null values
-va giai thich tai sao chung anh huong den ket qua cua Agent.)
+Khi dùng `garbage_data.csv`, Agent trả lời sai vì chất lượng dữ liệu đầu vào rất kém. Bộ dữ liệu có `duplicate IDs` làm giảm độ tin cậy của bản ghi, có `wrong data types` như giá trị `ten dollars` trong cột `price` khiến việc so sánh và xử lý giá trở nên không ổn định. Ngoài ra, `outlier` như `Nuclear Reactor` với giá `999999` làm logic chọn sản phẩm giá cao nhất bị lệch hoàn toàn. Bản ghi cuối cùng còn có `null value` ở `id` và `category`, cho thấy dữ liệu thiếu và không đầy đủ. Khi Agent dựa trên dữ liệu rác, nó vẫn tìm thấy một bản ghi thuộc nhóm `electronics`, nhưng do không có bước validation và ràng buộc business, nó chọn sản phẩm vô lý thay vì sản phẩm thực sự phù hợp.
 
 ---
 
-## 3. Ket luan
+## 3. Kết luận
 
-**Quality Data > Quality Prompt?** (Dong y hay khong? Giai thich ngan gon.)
+**Quality Data > Quality Prompt?** (Đồng ý hay không? Giải thích ngắn gọn.)
 
-(Viet ket luan cua ban o day)
+Đồng ý. Prompt có tốt đến đâu thì Agent vẫn phụ thuộc vào dữ liệu mà nó đọc được. Nếu dữ liệu sai, thiếu, trùng lặp hoặc có outlier bất thường thì câu trả lời vẫn sẽ sai hoặc gây hiểu nhầm. Vì vậy, dữ liệu chất lượng cao là nền tảng quan trọng hơn để Agent trả lời đúng và đáng tin cậy.
